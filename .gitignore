@@ -1,0 +1,42 @@
+# .NET specific
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.swp
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Local storage (Blazor specific)
+wwwroot/appsettings*.json
+
+# IDE directories
+.idea/
+
+# Packages
+*.nupkg
+*.snupkg
+
+# Build artefacts
+*.dll
+*.exe
+*.pdb
+*.app
+*.so
+*.dylib
+*.lib
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Service Worker specific (Blazor)
+wwwroot/service-worker-assets.js
