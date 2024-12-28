@@ -1,0 +1,63 @@
+@page "/todolist"
+@using System.Text.Json
+@inject IJSRuntime JSRuntime
+
+<h1>To-Do List</h1>
+
+<input type="text" @bind="newTask" placeholder="Enter a new task" />
+<button @onclick="AddTask">Add</button>
+
+<ul>
+    @foreach (var task in tasks)
+    {
+        <li>
+            <input type="checkbox" @bind="task.IsCompleted" />
+            <span style="@(task.IsCompleted ? "text-decoration: line-through;" : "")">
+                @task.Name
+            </span>
+            <button @onclick="() => RemoveTask(task)">Delete</button>
+        </li>
+    }
+</ul>
+
+@code {
+    private string newTask = string.Empty;
+    private List<TaskItem> tasks = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var savedTasks = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "tasks");
+        if (!string.IsNullOrEmpty(savedTasks))
+        {
+            tasks = JsonSerializer.Deserialize<List<TaskItem>>(savedTasks) ?? new List<TaskItem>();
+        }
+    }
+
+    private async Task AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTask))
+        {
+            tasks.Add(new TaskItem { Name = newTask });
+            newTask = string.Empty;
+            await SaveTasks();
+        }
+    }
+
+    private async Task RemoveTask(TaskItem task)
+    {
+        tasks.Remove(task);
+        await SaveTasks();
+    }
+
+    private async Task SaveTasks()
+    {
+        var json = JsonSerializer.Serialize(tasks);
+        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "tasks", json);
+    }
+
+    private class TaskItem
+    {
+        public string Name { get; set; } = string.Empty;
+        public bool IsCompleted { get; set; }
+    }
+}
