@@ -1,6 +1,5 @@
 # .NET specific
 bin/
-obj/
 
 # Visual Studio Code
 .vscode/
