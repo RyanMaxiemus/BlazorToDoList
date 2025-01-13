@@ -2,62 +2,72 @@
 @using System.Text.Json
 @inject IJSRuntime JSRuntime
 
-<h1>To-Do List</h1>
+<!-- ToDoList.razor -->
+<div class="col-12 col-md-6 todo-container">
+  <!-- To-Do List Content -->
+  <h1>To-Do List</h1>
 
-<input type="text" @bind="newTask" placeholder="Enter a new task" />
-<button @onclick="AddTask">Add</button>
-
-<ul>
+    <div class="row">
+      <div class="col-9">
+        <input type="text" @bind="newTask" class="form-control" placeholder="Enter a new task" />
+      </div>
+      <div class="col-3">
+        <button @onclick="AddTask" class="btn btn-primary w-100">Add</button>
+      </div>
+    </div>
+ 
+  <ul class="list-unstyled mt-3">
     @foreach (var task in tasks)
     {
-        <li>
-            <input type="checkbox" @bind="task.IsCompleted" />
-            <span style="@(task.IsCompleted ? "text-decoration: line-through;" : "")">
-                @task.Name
-            </span>
-            <button @onclick="() => RemoveTask(task)">Delete</button>
-        </li>
+      <li class="d-flex align-items-center mb-2">
+        <input type="checkbox" @bind="task.IsCompleted" class="form-check-input me-2" />
+        <span class="flex-grow-1" style="@(task.IsCompleted ? "text-decoration: line-through;" : "")">
+          @task.Name
+        </span>
+        <button @onclick="() => RemoveTask(task)">Delete</button>
+      </li>
     }
-</ul>
+  </ul>
+</div>
 
 @code {
-    private string newTask = string.Empty;
-    private List<TaskItem> tasks = new();
+  private string newTask = string.Empty;
+  private List<TaskItem> tasks = new();
 
-    protected override async Task OnInitializedAsync()
+  protected override async Task OnInitializedAsync()
+  {
+    var savedTasks = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "tasks");
+    if (!string.IsNullOrEmpty(savedTasks))
     {
-        var savedTasks = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "tasks");
-        if (!string.IsNullOrEmpty(savedTasks))
-        {
-            tasks = JsonSerializer.Deserialize<List<TaskItem>>(savedTasks) ?? new List<TaskItem>();
-        }
+      tasks = JsonSerializer.Deserialize<List<TaskItem>>(savedTasks) ?? new List<TaskItem>();
     }
+  }
 
-    private async Task AddTask()
+  private async Task AddTask()
+  {
+    if (!string.IsNullOrWhiteSpace(newTask))
     {
-        if (!string.IsNullOrWhiteSpace(newTask))
-        {
-            tasks.Add(new TaskItem { Name = newTask });
-            newTask = string.Empty;
-            await SaveTasks();
-        }
+      tasks.Add(new TaskItem { Name = newTask });
+      newTask = string.Empty;
+      await SaveTasks();
     }
+  }
 
-    private async Task RemoveTask(TaskItem task)
-    {
-        tasks.Remove(task);
-        await SaveTasks();
-    }
+  private async Task RemoveTask(TaskItem task)
+  {
+    tasks.Remove(task);
+    await SaveTasks();
+  }
 
-    private async Task SaveTasks()
-    {
-        var json = JsonSerializer.Serialize(tasks);
-        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "tasks", json);
-    }
+  private async Task SaveTasks()
+  {
+    var json = JsonSerializer.Serialize(tasks);
+    await JSRuntime.InvokeVoidAsync("localStorage.setItem", "tasks", json);
+  }
 
-    private class TaskItem
-    {
-        public string Name { get; set; } = string.Empty;
-        public bool IsCompleted { get; set; }
-    }
+  private class TaskItem
+  {
+    public string Name { get; set; } = string.Empty;
+    public bool IsCompleted { get; set; }
+  }
 }
