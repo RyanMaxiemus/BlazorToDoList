@@ -1,22 +1,59 @@
 /* filepath: /home/r00ph13/Development/DotNet/BlazorToDoList/wwwroot/css/dark-theme.css */
-html, body {
+html, 
+body {
     background-color: #121212;
     color: #e0e0e0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-a, .btn-link {
+a, 
+.btn-link {
     color: #bb86fc;
 }
 
 .btn-primary {
     color: #fff;
     background-color: #bb86fc;
-    border-color: #3700b3;
+    border: none;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn-primary:hover {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #bb86fc;
+}
+
+.btn-primary:focus, 
+.btn-primary:active:focus {
+    box-shadow: none;
+}
+
+.btn:focus, 
+.btn:active:focus, 
+.btn-link.nav-link:focus, 
+.form-control:focus, 
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #bb86fc;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #444;
+    border-color: #444;
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+    border-color: #555;
+}
+
+.btn-secondary:focus, 
+.btn-secondary:active:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #444;
+}
+
+.top-row {
+    background-color: #333 !important;
+    border-bottom: 1px solid #444 !important;
+    border-left: 1px solid #000 !important;
 }
 
 .content {
@@ -84,11 +121,13 @@ code {
     color: #bb86fc;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating > .form-control-plaintext::placeholder, 
+.form-floating > .form-control::placeholder {
     color: #e0e0e0;
     text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder, 
+.form-floating > .form-control:focus::placeholder {
     text-align: start;
 }

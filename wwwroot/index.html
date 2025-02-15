@@ -13,23 +13,11 @@
     <link href="manifest.webmanifest" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
-
-    <script>
-        function toggleTheme() {
-            // Get the theme link element
-            const themeLink = document.getElementById('theme-link');
-            
-            // If the current theme is light, change it to dark
-            if (themeLink.getAttribute('href') === 'css/app.css') {
-                themeLink.setAttribute('href', 'css/dark-theme.css');
-            } else { // Otherwise, change it back to light
-                themeLink.setAttribute('href', 'css/app.css');
-            }
-        }
-    </script>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 </head>
 
 <body>
+    <!-- The app will be rendered here -->
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
@@ -38,13 +26,14 @@
         <div class="loading-progress-text"></div>
     </div>
 
+    <!-- The error UI will be rendered here -->
     <div id="blazor-error-ui">
         An unhandled error has occurred.
         <a href="." class="reload">Reload</a>
         <span class="dismiss">🗙</span>
     </div>
-    <button onclick="toggleTheme()">Toggle Theme</button>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/theme-toggle.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 

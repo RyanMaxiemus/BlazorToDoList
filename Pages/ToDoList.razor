@@ -24,7 +24,7 @@
         <span class="flex-grow-1" style="@(task.IsCompleted ? "text-decoration: line-through;" : "")">
           @task.Name
         </span>
-        <button @onclick="() => RemoveTask(task)">Delete</button>
+        <button class="btn btn-secondary" @onclick="() => RemoveTask(task)">Delete</button>
       </li>
     }
   </ul>
