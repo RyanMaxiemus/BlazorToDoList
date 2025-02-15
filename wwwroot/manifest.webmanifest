@@ -1,6 +1,6 @@
 {
   "name": "BlazorToDoList",
-  "short_name": "BlazorToDoList",
+  "short_name": "BlazorToDo",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

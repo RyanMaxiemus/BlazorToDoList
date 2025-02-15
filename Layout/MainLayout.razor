@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -7,6 +8,7 @@
     <main>
         <div class="top-row px-4">
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <button @onclick="ToggleTheme">Toggle Theme</button>
         </div>
 
         <article class="content px-4">
@@ -14,3 +16,16 @@
         </article>
     </main>
 </div>
+
+@code {
+    [Inject]
+    private IJSRuntime? JsRuntime { get; set; }
+
+    private void ToggleTheme()
+    {
+        if (JsRuntime != null)
+        {
+            JsRuntime.InvokeVoidAsync("toggleTheme");
+        }
+    }
+}
