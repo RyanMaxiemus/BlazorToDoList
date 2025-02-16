@@ -43,6 +43,25 @@ main > .top-row:first-child {
   margin-left: 0 !important;
 }
 
+#theme-switch {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+#theme-switch svg {
+  margin: 0 auto;
+  color: #1C274C;
+}
+
+#theme-switch:hover svg {
+  color: #ffff00;
+}
+
+#toggle-moon-icon {
+  display: none;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #bb86fc;
