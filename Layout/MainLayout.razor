@@ -7,7 +7,7 @@
 
   <main>
     <div class="top-row px-4 d-flex justify-content-between">
-      <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+      <a class="btn-link" href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
       <button class="btn btn-primary ml-auto" @onclick="ToggleTheme">Toggle Theme</button>
     </div>
 
@@ -21,11 +21,12 @@
   [Inject]
   private IJSRuntime? JsRuntime { get; set; }
 
-  private void ToggleTheme()
+  private async Task ToggleTheme()
   {
     if (JsRuntime != null)
     {
-      JsRuntime.InvokeVoidAsync("toggleTheme");
+      await JsRuntime.InvokeVoidAsync("toggleTheme");
+      await JsRuntime.InvokeVoidAsync("blurActiveElement");
     }
   }
 }
