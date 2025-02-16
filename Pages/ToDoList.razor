@@ -7,23 +7,32 @@
   <!-- To-Do List Content -->
   <h1>To-Do List</h1>
 
+  <!-- Add New Task -->
   <div class="row">
-    <div class="col-9">
-      <input type="text" @bind="newTask" class="form-control" placeholder="Enter a new task" />
+    <div class="col-8">
+      <input type="text" @bind="newTask" class="form-control" placeholder="Enter a new task" name="newTaskInput" />
     </div>
-    <div class="col-3">
+    <div class="col-4">
       <button @onclick="AddTask" class="btn btn-primary w-100">Add</button>
     </div>
   </div>
 
+  <!-- Task List -->
   <ul class="list-unstyled mt-3">
     @foreach (var task in tasks)
     {
+      <!-- Task Item -->
       <li class="d-flex align-items-center mb-2">
-        <input type="checkbox" @bind="task.IsCompleted" class="form-check-input me-2" />
+        
+        <!-- Checkbox To Toggle Completion -->
+        <input type="checkbox" @bind="task.IsCompleted" class="form-check-input me-2" name="taskCheckbox_@task.GetHashCode()" />
+        
+        <!-- Task Name With Line Through It If Completed -->
         <span class="flex-grow-1" style="@(task.IsCompleted ? "text-decoration: line-through;" : "")">
           @task.Name
         </span>
+        
+        <!-- Delete Button -->
         <button class="btn btn-secondary" @onclick="() => RemoveTask(task)">Delete</button>
       </li>
     }
@@ -31,24 +40,38 @@
 </div>
 
 @code {
+  // New Task Input
   private string newTask = string.Empty;
+
+  // Task List
   private List<TaskItem> tasks = new();
 
+  // Load Tasks From Local Storage
   protected override async Task OnInitializedAsync()
   {
+    // Get Tasks From Local Storage
     var savedTasks = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "tasks");
+
+    // If Tasks Exist, Deserialize Them
     if (!string.IsNullOrEmpty(savedTasks))
     {
       tasks = JsonSerializer.Deserialize<List<TaskItem>>(savedTasks) ?? new List<TaskItem>();
     }
   }
 
+  // Add New Task
   private async Task AddTask()
   {
+    // Add Task If Not Empty
     if (!string.IsNullOrWhiteSpace(newTask))
     {
+      // Add Task To List
       tasks.Add(new TaskItem { Name = newTask });
+
+      // Clear New Task Input
       newTask = string.Empty;
+
+      // Save Tasks To Local Storage
       await SaveTasks();
     }
   }
