@@ -10,7 +10,7 @@
   <!-- Add New Task -->
   <div class="row">
     <div class="col-8">
-      <input type="text" @bind="newTask" class="form-control" placeholder="Enter a new task" name="newTaskInput" />
+      <input type="text" @bind="newTask" class="form-control" placeholder="Enter a new task" id="newTaskInput" name="newTaskInput" />
     </div>
     <div class="col-4">
       <button @onclick="AddTask" class="btn btn-primary w-100">Add</button>
@@ -25,8 +25,8 @@
       <li class="d-flex align-items-center mb-2">
         
         <!-- Checkbox To Toggle Completion -->
-        <input type="checkbox" @bind="task.IsCompleted" class="form-check-input me-2" name="taskCheckbox_@task.GetHashCode()" />
-        
+        <input type="checkbox" checked="@task.IsCompleted" @onchange="(e) => ToggleTaskCompletion(task, e)" class="form-check-input me-2" id="taskCheckbox_@task.GetHashCode()" name="taskCheckbox_@task.GetHashCode()" />
+
         <!-- Task Name With Line Through It If Completed -->
         <span class="flex-grow-1" style="@(task.IsCompleted ? "text-decoration: line-through;" : "")">
           @task.Name
@@ -47,8 +47,7 @@
   private List<TaskItem> tasks = new();
 
   // Load Tasks From Local Storage
-  protected override async Task OnInitializedAsync()
-  {
+  protected override async Task OnInitializedAsync() {
     // Get Tasks From Local Storage
     var savedTasks = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "tasks");
 
@@ -82,12 +81,20 @@
     await SaveTasks();
   }
 
+  // Toggle Task Completion
+  private async Task ToggleTaskCompletion(TaskItem task, ChangeEventArgs e) {
+    task.IsCompleted = (bool)e.Value;
+    await SaveTasks();
+  }
+
+  // Save Tasks To Local Storage
   private async Task SaveTasks()
   {
     var json = JsonSerializer.Serialize(tasks);
     await JSRuntime.InvokeVoidAsync("localStorage.setItem", "tasks", json);
   }
 
+  // Task Item Class
   private class TaskItem
   {
     public string Name { get; set; } = string.Empty;
