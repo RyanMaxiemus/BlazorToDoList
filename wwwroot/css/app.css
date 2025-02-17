@@ -11,6 +11,85 @@ a {
   color: #0071c1;
 }
 
+/* Pulse on Hover */
+/* @-webkit-keyframes hvr-pulse {
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes hvr-pulse {
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+} */
+
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  border: none;
+  /* -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0); */
+}
+
+/* .btn:hover,
+.btn:active:focus {
+  -webkit-animation-name: hvr-pulse;
+  animation-name: hvr-pulse;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+} */
+
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border: none;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.btn-primary:active:focus {
+  box-shadow: none;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.btn-secondary:focus,
+.btn-secondary:active:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #6c757d;
+}
+
 .navbar > .container-fluid {
   padding-right: 1.5rem;
 }
@@ -52,44 +131,6 @@ main > .top-row:first-child {
 #theme-switch:hover svg {
   color: #fff;
   transform: rotate(360deg);
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border: none;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.btn.btn-primary:active:focus {
-  box-shadow: none;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.btn-secondary {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
-}
-
-.btn-secondary:focus,
-.btn-secondary:active:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #6c757d;
 }
 
 .navbar-brand {
