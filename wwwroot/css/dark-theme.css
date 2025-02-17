@@ -19,7 +19,6 @@ a {
 
 .sidebar > .top-row:first-child {
   min-height: 60px;
-  background-color: #333;
 }
 
 main > .top-row:first-child {
@@ -52,10 +51,12 @@ main > .top-row:first-child {
 #theme-switch svg {
   margin: 0 auto;
   color: #1C274C;
+  transition: transform .7s ease-in-out;
 }
 
 #theme-switch:hover svg {
   color: #ffff00;
+  transform: rotate(180deg);
 }
 
 #toggle-moon-icon {

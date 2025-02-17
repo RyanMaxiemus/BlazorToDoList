@@ -46,10 +46,12 @@ main > .top-row:first-child {
 #theme-switch svg {
   margin: 0 auto;
   color: #1C274C;
+  transition: transform .7s ease-in-out;
 }
 
 #theme-switch:hover svg {
   color: #fff;
+  transform: rotate(360deg);
 }
 
 .btn-primary {
